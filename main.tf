@@ -6,8 +6,9 @@ provider "aws" {
 }
 
 resource "aws_instance" "web" {
-  ami           = "ami-0c55b159cbfafe1f0"  # Replace with a valid AMI for your region
+  ami           = data.aws_ami.amazon_linux.id  # Replace with a valid AMI for your region
   instance_type = "t2.micro"
+  key_name = "aws"
 
   provisioner "file" {
     source      = "index.html"
