@@ -5,7 +5,7 @@ provider "aws" {
   region = "us-east-1"  # Adjust as needed
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "example" {
   ami           = data.aws_ami.amazon_linux.id  # Replace with a valid AMI for your region
   instance_type = "t2.micro"
   key_name = "aws"
