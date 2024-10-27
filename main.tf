@@ -1,15 +1,5 @@
 # main.tf
 
-# Configure AWS Provider
-provider "aws" {
-  region = "us-east-1"  # Update as needed
-}
-
-# Configure Azure Provider
-provider "azurerm" {
-  features {}
-}
-
 # aws_instance.tf
 provider "aws" {
   region = "us-east-1"  # Adjust as needed
