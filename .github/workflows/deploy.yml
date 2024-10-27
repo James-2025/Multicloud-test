@@ -1,0 +1,39 @@
+# .github/workflows/deploy.yml
+name: Deploy to AWS and Azure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Load environment variables
+        run: |
+          set -a
+          source .env
+          set +a
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.11
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        env:
+          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          ARM_CLIENT_ID: ${{ env.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ env.ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ env.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ env.ARM_TENANT_ID }}
